@@ -18,7 +18,6 @@ function App() {
         const response = await fetch('https://jsonplaceholder.typicode.com/users');
         const jsonData = await response.json();
         setState(prevState => ({ ...prevState, monsters: jsonData }));
-        filteredMonsters = state.monsters;
       } catch (error) {
         console.log("Error fetching the api")
       }
@@ -33,9 +32,14 @@ function App() {
     }
   }, [state.monsters])
   
-  const filteredMonsters = state.monsters.filter((monster) => {
-    return monster.name.toLocaleLowerCase().includes(state.searchField);
-  });
+  useEffect(() => {
+    const filteredMonsters = state.monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(state.searchField);
+    });
+    setFilteredMonsters(filteredMonsters);
+  }, [state.monsters, state.searchField]);
+  
+  const [filteredMonsters, setFilteredMonsters] = useState([]);
 
 
   const onSearchChanged = (event) =>{
