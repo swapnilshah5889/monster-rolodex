@@ -37,16 +37,19 @@ function App() {
     return monster.name.toLocaleLowerCase().includes(state.searchField);
   });
 
+
+  const onSearchChanged = (event) =>{
+    console.log(event);
+    const searchString = event.target.value.toLocaleLowerCase();
+    setState(prevState => ({ ...prevState, searchField: searchString} ));
+  };
+
   return (
     <div className="App">
       {console.log('Render')}
 
       {/* Input field */}
-      <input className='search-box' type='search' placeholder='Search Monster' onChange={(event)=>{
-        console.log(event);
-        const searchString = event.target.value.toLocaleLowerCase();
-        setState(prevState => ({ ...prevState, searchField: searchString} ));
-      }}/>
+      <input className='search-box' type='search' placeholder='Search Monster' onChange={onSearchChanged}/>
 
       {/* List of Monsters */}
       {filteredMonsters.map((monster) => (
