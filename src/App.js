@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import CardList from './components/card-list/card-list.component';
 
 function App() {
 
+  // Initial Values of State object
   const [state, setState] = useState({
     monsters:[],
     searchField:''
   });
 
 
+  // useEffect hook to fetch api data
   useEffect(() => {
     console.log('Component mounted');
     
@@ -30,6 +33,7 @@ function App() {
   // The useEffect array is empty so it will be called only once
   []) 
   
+  // Hook to log monster's data
   useEffect(() => {
     if(state.monsters) {
       console.log('Response : ', state.monsters);
@@ -43,9 +47,15 @@ function App() {
   // Filtered monsters will be set everytime monsters or searchfield changes in the state
   useEffect(() => {
     // Filter monsters from state.monsters and then set it to a variable filteredMonsters
-    const filteredMonsters = state.monsters.filter((monster) => {
-      return monster.name.toLocaleLowerCase().includes(state.searchField);
-    });
+    let filteredMonsters;
+    if(state.searchField.length>0) {
+      filteredMonsters = state.monsters.filter((monster) => {
+        return monster.name.toLocaleLowerCase().includes(state.searchField);
+      });
+    }
+    else {
+      filteredMonsters = state.monsters;
+    }
     // Set filteredMonsters using state
     setFilteredMonsters(filteredMonsters);
   },
@@ -63,19 +73,21 @@ function App() {
     setState(prevState => ({ ...prevState, searchField: searchString} ));
   };
 
+  // The component that will be rendered
   return (
     <div className="App">
       {console.log('Render')}
 
       {/* Input field */}
-      <input className='search-box' type='search' placeholder='Search Monster' onChange={onSearchChanged}/>
-
+      <input 
+        className='search-box' 
+        type='search' 
+        placeholder='Search Monster' 
+        onChange={onSearchChanged}
+      />
+      
       {/* List of Monsters */}
-      {filteredMonsters.map((monster) => (
-        <div key={monster.id}>
-          <p>{monster.name}</p>
-        </div>
-      ))}
+      <CardList monsters={filteredMonsters}/>
 
     </div>
   );
