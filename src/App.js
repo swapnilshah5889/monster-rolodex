@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import CardList from './components/card-list/card-list.component';
+import SearchBox from './components/search-box/search-box.component';
 
 function App() {
 
@@ -14,7 +15,6 @@ function App() {
 
   // useEffect hook to fetch api data
   useEffect(() => {
-    console.log('Component mounted');
     
     // Asynchoronous call to fetch data from API
     const fetchData = async () => {
@@ -36,7 +36,7 @@ function App() {
   // Hook to log monster's data
   useEffect(() => {
     if(state.monsters) {
-      console.log('Response : ', state.monsters);
+      // console.log('Response : ', state.monsters);
     }
   }, 
   // The useEffect array has state.monsters so this 
@@ -67,23 +67,20 @@ function App() {
 
   // Handle On search change event : fetch value from input field and set it in the state
   const onSearchChanged = (event) =>{
-    console.log(event);
     const searchString = event.target.value.toLocaleLowerCase();
     // using prevState we preserve the old state object and merge the changes in the 2nd parameter
     setState(prevState => ({ ...prevState, searchField: searchString} ));
   };
 
   // The component that will be rendered
-  return (
+  return (  
     <div className="App">
-      {console.log('Render')}
 
       {/* Input field */}
-      <input 
-        className='search-box' 
-        type='search' 
-        placeholder='Search Monster' 
-        onChange={onSearchChanged}
+      <SearchBox 
+        className={'search-box'}
+        onChangeHandler={onSearchChanged}
+        placeHolder={'Search Monster'}    
       />
       
       {/* List of Monsters */}

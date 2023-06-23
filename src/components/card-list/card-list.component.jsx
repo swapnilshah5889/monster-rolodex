@@ -1,19 +1,21 @@
 import { Component } from "react";
+import React from "react";
 
 class CardList extends Component {
 
     render() {
+        console.log(this.props.monsters);
         const {monsters} = this.props;
-        console.log(monsters);
+        console.log("Render from card list");
         
         return ( 
             <div>        
                 {monsters.map((monster) => (
-                    <p>{monster.name}</p>
+                    <p key={monster.id}>{monster.name}</p>
                 ))}
             </div>
         );
     }
 }
-
-export default CardList;
+const MemoizedCardList = React.memo(CardList);  
+export default MemoizedCardList;
