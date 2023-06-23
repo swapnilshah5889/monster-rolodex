@@ -76,6 +76,8 @@ function App() {
   return (  
     <div className="App">
 
+      {/* App Title */}
+      <h1 className='app-title'>Monster Diary</h1>
       {/* Input field */}
       <SearchBox 
         className={'monsters-search-box'}
