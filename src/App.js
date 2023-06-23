@@ -78,13 +78,14 @@ function App() {
 
       {/* Input field */}
       <SearchBox 
-        className={'search-box'}
+        className={'monsters-search-box'}
         onChangeHandler={onSearchChanged}
         placeHolder={'Search Monster'}    
       />
       
       {/* List of Monsters */}
-      <CardList monsters={filteredMonsters}/>
+      <CardList 
+        monsters={filteredMonsters}/>
 
     </div>
   );
