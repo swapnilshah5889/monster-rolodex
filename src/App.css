@@ -20,4 +20,9 @@ body {
   font-size: 76px;
   color: #0ccac4;
   font-family: 'Bigelow Rules';
+  transition: color 0.2s ease;
+}
+
+.app-title:hover {
+  color: #00fff7;
 }
